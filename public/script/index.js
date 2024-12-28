@@ -80,7 +80,8 @@ let mapTapHoldTimeout ;
 map.doubleClickZoom.disable(); 
 map.on('dblclick', function(e) {
     let latlng = map.mouseEventToLatLng(e.originalEvent);
-    L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
+    // L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
+    openForm(latlng);
 });
 
 function showPosition(position) {
@@ -97,4 +98,49 @@ function getLocation() { // called onload
 
 function backToYourPos() {
     map.setView([latitude, longitude], defaultZoom);
+}
+
+let formitem = document.getElementById('spottingForm');
+formitem.addEventListener('submit', formSubmit);
+
+function openForm(latlng) {
+    document.getElementById('spottingForm').style.display = 'block';
+}
+
+function closeForm() {
+    document.getElementById('spottingForm').style.display = 'none';
+}
+
+function formSubmit(e){
+    // console.log(SELECTED); // global variable defined in index.html
+    e.preventDefault();
+    const formData = new FormData(document.getElementById('spottingForm'));
+    const formObject = {};
+    formData.forEach((value, key) => {
+        formObject[key] = value || fields[SELECTED][key]['default'] // fields defined in index.html
+    });
+    formObject['latitude'] = latitude;
+    formObject['longitude'] = longitude;
+    
+    fetch(`/add_${SELECTED}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formObject),
+    }).then(res => res.json())
+    .then(data => {
+        if (data.error) alert(data.error);
+        else {
+            if (SELECTED === 'tree') {
+                if (data.name === 'Castagno') L.marker([data.latitude, data.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(data.name);
+                else if (data.name === 'Noce') L.marker([data.latitude, data.longitude], {icon: walnutIcon}).addTo(map).bindPopup(data.name);
+                else L.marker([data.latitude, data.longitude], {icon: treeIcon}).addTo(map).bindPopup(data.name);
+            }
+            else if (SELECTED === 'pod') L.marker([data.latitude, data.longitude], {icon: waterIcon}).addTo(map).bindPopup(data.name);
+            else if (SELECTED === 'ruin') L.marker([data.latitude, data.longitude], {icon: ruinIcon}).addTo(map).bindPopup(data.name);
+        }
+    }).catch(err => console.log(err));
+
+    closeForm();
 }

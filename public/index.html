@@ -41,7 +41,7 @@
       <div id="formFields">
         <!-- Fields will be dynamically inserted here -->
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" onsubmit="formSubmit">Submit</button>
       </form>
     </div>
 
@@ -73,15 +73,17 @@
         }
       }
 
+    let SELECTED = 'tree'; // tree pod or ruin
+
     function showForm(selectedType) {
+      SELECTED = selectedType;
       const formFields = document.getElementById('formFields');
       formFields.innerHTML = '';
 
       let formContent = '';
       for (const [key,value] of Object.entries(fields[selectedType])) {
         formContent += `
-          <label for="${key}">${key}:</label>
-          <input type="${value['type']} " id="${key}" name="${key}" placeholder="${value['default']}"><br/>
+          <input type="${value['type']} " id="${key}" name="${key}" placeholder="${key}" defaultvalue="${value['default']}"><br/>
         `;
       }
       formFields.innerHTML = formContent;
