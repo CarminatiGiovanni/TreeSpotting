@@ -11,9 +11,8 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <title>TreeSpotting</title>
 </head>
-<body onload="getLocation()">
+<body onload="onLoadCycle()">
     <!-- Navbar -->
-
     <!-- Top Navigation Menu  https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_mobile_navbar_hor -->
     <div class="topnav">
       <a href="#home" class="active" onclick="backToYourPos()">
@@ -46,62 +45,9 @@
       </form>
     </div>
 
-    <script>
-      // let selectedType = 'tree';
-      // showForm(selectedType);
-
-      const fields = {
-        'tree':{
-          'name': { "type": "text", "required": "false", "default": "Unknown Tree" },
-          //'latitude': { "type": "Number", "required": "true" },
-          //'longitude': { "type": "Number", "required": "true" },
-          'size': { "type": "text", "required": "false", "default": "Unknown Size" },
-          'description': { "type": "text", "required": "false", "default": "No description provided" },
-          'discoveredBy': { "type": "text", "required": "false", "default": "Anonymous" }},
-        'pod': {
-          'name': { "type": "String", "required": "false", "default": "Unnamed Pod" },
-          // 'latitude': { "type": "Number", "required": "true" },
-          // 'longitude': { "type": "Number", "required": "true" },
-          'description': { "type": "String", "required": "false", "default": "No description provided" },
-          'discoveredBy': { "type": "String", "required": "false", "default": "Anonymous" }
-        },
-        'ruin': {
-          'name': { "type": "String", "required": "false", "default": "Unnamed Ruin" },
-          // 'latitude': { "type": "Number", "required": "true" },
-          // 'longitude': { "type": "Number", "required": "true" },
-          'description': { "type": "String", "required": "false", "default": "No description provided" },
-          'discoveredBy': { "type": "String", "required": "false", "default": "Anonymous" }
-        }
-      }
-
-    let SELECTED = 'tree'; // tree pod or ruin
-
-    function showForm(selectedType) {
-      SELECTED = selectedType;
-      const formFields = document.getElementById('formFields');
-      formFields.innerHTML = '';
-
-      let formContent = '';
-      for (const [key,value] of Object.entries(fields[selectedType])) {
-        formContent += `
-          <input type="${value['type']} " id="${key}" name="${key}" placeholder="${key}" defaultvalue="${value['default']}"><br/>
-        `;
-      }
-      formFields.innerHTML = formContent;
-
-      // Update button styles
-      document.querySelectorAll('.button-container button').forEach(button => {
-        button.style.backgroundColor = '#4CAF50';
-        button.style.color = 'white';
-      });
-      document.getElementById(`${selectedType}Button`).style.backgroundColor = '#f9f9f9';
-      document.getElementById(`${selectedType}Button`).style.color = 'black';
-      }
-
-      document.addEventListener('DOMContentLoaded', () => showForm('tree'));
-    </script>
-
     <!-- Code for leaflet -->
+    <script src="./script/globals.js"> </script>
+    <script src="./script/map.js"> </script>
     <script src="./script/index.js"> </script>
 </body>
 </html>

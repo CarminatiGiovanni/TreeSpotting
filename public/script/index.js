@@ -1,117 +1,27 @@
-const defaultZoom = 15
-let zoom = defaultZoom;
-let latitude = 45.794284064900566;
-let longitude = 9.704325503425144;
-
-let objLat = 0;
+let objLat = 0; //TODO: remove as global variables
 let objLng = 0;
 
-let yourPosIcon = L.icon({
-    iconUrl: '../icon/feet.png',
-    iconSize:     [30, 30], // size of the icon
-    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
-});
+///// ONLOAD ///////////////////////////////////////////////////////////////////////////////////////
 
-let chestnutIcon = L.icon({
-    iconUrl: '../icon/chestnut.png',
-    iconSize:     [30, 30], // size of the icon
-    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
-});
+function onLoadCycle(){
+    // getting location
+    if (navigator.geolocation) navigator.geolocation.getCurrentPosition((position) => {
+        userLat = position.coords.latitude; // set lat e lng
+        userLng = position.coords.longitude;
+        backToYourPos();
+        L.marker([userLat,userLng], {icon: feetIcon}).addTo(map).bindPopup('You are here!') // puts marker 
+    });
+    else {
+        console.log('error, impossible get the location');
+        return;
+    }
 
-let walnutIcon = L.icon({
-    iconUrl: '../icon/walnut.png',
-    iconSize:     [30, 30], // size of the icon
-    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
-});
-
-let treeIcon = L.icon({
-    iconUrl: '../icon/tree.png',
-    iconSize:     [30, 30], // size of the icon
-    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
-});
-
-let waterIcon = L.icon({
-    iconUrl: '../icon/drop.png',
-    iconSize:     [30, 30], // size of the icon
-    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
-});
-
-let ruinIcon = L.icon({
-    iconUrl: '../icon/ruin.png',
-    iconSize:     [30, 30], // size of the icon
-    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
-});
-
-let map = L.map('map').fitWorld(); //setView([latitude, longitude], defaultZoom);
-
-function getRuins(){
-    fetch('/ruins',{method: 'POST'})
-    .then(res => res.json())
-    .then(ruins => {
-        ruins.forEach(ruin => {
-            L.marker([ruin.latitude, ruin.longitude], {icon: ruinIcon}).addTo(map).bindPopup(ruin.name);
-        });
-    })
-    .catch(err => console.log(err));
-}
-function getTrees() {
-    fetch('/trees', { method: 'POST' })
-        .then(res => res.json())
-        .then(trees => {
-            trees.forEach(tree => {
-                if (tree.name === 'Castagno') L.marker([tree.latitude, tree.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(tree.name);
-                else if (tree.name === 'Noce') L.marker([tree.latitude, tree.longitude], {icon: walnutIcon}).addTo(map).bindPopup(tree.name);
-                else L.marker([tree.latitude, tree.longitude], {icon: treeIcon}).addTo(map).bindPopup(tree.name);
-            });
-        })
-        .catch(err => console.log(err));
+    getPods();
+    getTrees();
+    getRuins();
 }
 
-function getPods() {
-    fetch('/pods', { method: 'POST' })
-        .then(res => res.json())
-        .then(pods => {
-            pods.forEach(pod => {
-                L.marker([pod.latitude, pod.longitude], {icon: waterIcon}).addTo(map).bindPopup(pod.name);
-            });
-        })
-        .catch(err => console.log(err));
-}
-
-
-getPods();
-getTrees();
-getRuins();
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    maxZoom: 20,
-}).addTo(map);
-
-///// TOUCH SISTEM ///////////////////////////////////////////////////////////////////////////////////////
-
-let mapTapHoldTimeout ;
-
-map.doubleClickZoom.disable(); 
-map.on('dblclick', function(e) {
-    let latlng = map.mouseEventToLatLng(e.originalEvent);
-    // L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
-    openForm(latlng);
-});
-
-function showPosition(position) {
-    latitude = position.coords.latitude;
-    longitude = position.coords.longitude;
-    map.setView([latitude, longitude], defaultZoom);
-    L.marker([latitude,longitude], {icon: yourPosIcon}).addTo(map).bindPopup('You are here!') // .openPopup();
-}
-
-function getLocation() { // called onload
-    if (navigator.geolocation) navigator.geolocation.getCurrentPosition(showPosition);
-    else console.log('error');
-}
-
-function backToYourPos() {
-    map.setView([latitude, longitude], defaultZoom);
-}
+///// FORM ///////////////////////////////////////////////////////////////////////////////////////
 
 let formitem = document.getElementById('spottingForm');
 formitem.addEventListener('submit', formSubmit);
@@ -147,14 +57,65 @@ function formSubmit(e){
         body: JSON.stringify(formObject),
     }).then(res => res.json())
     .then(data => {
-        if (SELECTED === 'tree') {
-            if (formObject.name === 'Castagno') L.marker([formObject.latitude, formObject.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(formObject.name);
-            else if (formObject.name === 'Noce') L.marker([formObject.latitude, formObject.longitude], {icon: walnutIcon}).addTo(map).bindPopup(formObject.name);
-            else L.marker([formObject.latitude, formObject.longitude], {icon: treeIcon}).addTo(map).bindPopup(formObject.name);
-        }
+        if (SELECTED === 'tree') L.marker([objLat, objLng], {icon: treeiconmapping(formObject.name)}).addTo(map).bindPopup(formObject.name);
         else if (SELECTED === 'pod') L.marker([objLat, objLng], {icon: waterIcon}).addTo(map).bindPopup(formObject.name);
         else if (SELECTED === 'ruin') L.marker([objLat, objLng], {icon: ruinIcon}).addTo(map).bindPopup(formObject.name);
     }).catch(err => console.log('error',err));
 
     closeForm();
+}
+
+let SELECTED = 'tree'; // tree pod or ruin
+
+function showForm(selectedType) {
+  SELECTED = selectedType;
+  const formFields = document.getElementById('formFields');
+  formFields.innerHTML = '';
+
+  let formContent = '';
+  for (const [key,value] of Object.entries(fields[selectedType])) {
+    formContent += `
+      <input type="${value['type']} " id="${key}" name="${key}" placeholder="${key}" defaultvalue="${value['default']}"><br/>
+    `;
+  }
+  formFields.innerHTML = formContent;
+
+  // Update button styles
+  document.querySelectorAll('.button-container button').forEach(button => {
+    button.style.backgroundColor = '#4CAF50';
+    button.style.color = 'white';
+  });
+  document.getElementById(`${selectedType}Button`).style.backgroundColor = '#f9f9f9';
+  document.getElementById(`${selectedType}Button`).style.color = 'black';
+  }
+
+document.addEventListener('DOMContentLoaded', () => showForm('tree'));
+
+///////////////// Requests ///////////////////////////////////////////////////////////////////////////////////////
+
+function getRuins(){
+    fetch('/ruins',{method: 'POST'})
+    .then(res => res.json())
+    .then(ruins => {
+        ruins.forEach(ruin => {
+            L.marker([ruin.latitude, ruin.longitude], {icon: ruinIcon}).addTo(map).bindPopup(ruin.name);
+        });
+    })
+    .catch(err => console.log(err));
+}
+function getTrees() {
+    fetch('/trees', { method: 'POST' })
+        .then(res => res.json())
+        .then(trees => trees.forEach(tree => L.marker([tree.latitude, tree.longitude], {icon: treeiconmapping(tree.name)}).addTo(map).bindPopup(tree.name)))
+        .catch(err => console.log(err));
+}
+function getPods() {
+    fetch('/pods', { method: 'POST' })
+        .then(res => res.json())
+        .then(pods => {
+            pods.forEach(pod => {
+                L.marker([pod.latitude, pod.longitude], {icon: waterIcon}).addTo(map).bindPopup(pod.name);
+            });
+        })
+        .catch(err => console.log(err));
 }
