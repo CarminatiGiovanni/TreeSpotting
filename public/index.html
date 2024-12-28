@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/formstyle.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <title>TreeSpotting</title>
+</head>
+<body onload="getLocation()">
+    <!-- Navbar -->
+
+    <!-- Top Navigation Menu  https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_mobile_navbar_hor -->
+    <div class="topnav">
+      <a href="#home" class="active" onclick="backToYourPos()">
+         <img class="home_img" src="./icon/compass.png" alt="home"/> 
+      </a>
+      <div id="myLinks">
+        <a href="#A">A</a>
+        <a href="#B">B</a>
+        <a href="#C">C</a>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div id="map"></div>
+
+    <!-- Form -->
+    <div class="form-container">
+      <div class="button-container" style="margin: -20px -20px 20px -20px;">
+      <button id="treeButton" onclick="showForm('tree')">Tree</button>
+      <button id="ruinButton" onclick="showForm('ruin')">Ruin</button>
+      <button id="podButton" onclick="showForm('pod')">Pod</button>
+      </div>
+
+      <form id="spottingForm">
+      <div id="formFields">
+        <!-- Fields will be dynamically inserted here -->
+      </div>
+      <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      // let selectedType = 'tree';
+      // showForm(selectedType);
+
+      const fields = {
+        'tree':{
+          'name': { "type": "text", "required": "false", "default": "Unknown Tree" },
+          //'latitude': { "type": "Number", "required": "true" },
+          //'longitude': { "type": "Number", "required": "true" },
+          'size': { "type": "text", "required": "false", "default": "Unknown Size" },
+          'description': { "type": "text", "required": "false", "default": "No description provided" },
+          'discoveredBy': { "type": "text", "required": "false", "default": "Anonymous" }},
+        'pod': {
+          'name': { "type": "String", "required": "false", "default": "Unnamed Pod" },
+          // 'latitude': { "type": "Number", "required": "true" },
+          // 'longitude': { "type": "Number", "required": "true" },
+          'description': { "type": "String", "required": "false", "default": "No description provided" },
+          'discoveredBy': { "type": "String", "required": "false", "default": "Anonymous" }
+        },
+        'ruin': {
+          'name': { "type": "String", "required": "false", "default": "Unnamed Ruin" },
+          // 'latitude': { "type": "Number", "required": "true" },
+          // 'longitude': { "type": "Number", "required": "true" },
+          'description': { "type": "String", "required": "false", "default": "No description provided" },
+          'discoveredBy': { "type": "String", "required": "false", "default": "Anonymous" }
+        }
+      }
+
+    function showForm(selectedType) {
+      const formFields = document.getElementById('formFields');
+      formFields.innerHTML = '';
+
+      let formContent = '';
+      for (const [key,value] of Object.entries(fields[selectedType])) {
+        formContent += `
+          <label for="${key}">${key}:</label>
+          <input type="${value['type']} " id="${key}" name="${key}" placeholder="${value['default']}"><br/>
+        `;
+      }
+      formFields.innerHTML = formContent;
+
+      // Update button styles
+      document.querySelectorAll('.button-container button').forEach(button => {
+        button.style.backgroundColor = '#4CAF50';
+        button.style.color = 'white';
+      });
+      document.getElementById(`${selectedType}Button`).style.backgroundColor = '#f9f9f9';
+      document.getElementById(`${selectedType}Button`).style.color = 'black';
+      }
+
+      document.addEventListener('DOMContentLoaded', () => showForm('tree'));
+    </script>
+
+    <!-- Code for leaflet -->
+    <script src="./script/index.js"> </script>
+</body>
+</html>

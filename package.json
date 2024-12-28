@@ -1,0 +1,26 @@
+{
+  "name": "plant-identificator",
+  "version": "1.0.0",
+  "description": "test app for plant finding",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon --env-file=.env index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "author": "Carminati Giovanni",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-location": "^3.716.0",
+    "@aws/amazon-location-utilities-auth-helper": "^1.2.1",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
