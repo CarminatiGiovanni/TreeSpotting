@@ -31,9 +31,9 @@
     <!-- Form -->
     <div class="form-container" id='formcontainer'>
       <div class="button-container" style="margin: -20px -20px 20px -20px;">
-      <button id="treeButton" onclick="showForm('tree')">Tree</button>
-      <button id="ruinButton" onclick="showForm('ruin')">Ruin</button>
-      <button id="podButton" onclick="showForm('pod')">Pod</button>
+      <button id="treeButton" onclick="switchForm('tree')">Tree</button>
+      <button id="ruinButton" onclick="switchForm('ruin')">Ruin</button>
+      <button id="podButton" onclick="switchForm('pod')">Pod</button>
       </div>
 
       <form id="spottingForm">
@@ -41,15 +41,16 @@
       <!-- Fields will be dynamically inserted here -->
       </div>
       
-      <button type="submit" onsubmit="formSubmit">Submit</button>
+      <button type="submit">Submit</button>
       <button type="button" onclick="closeForm()" style="background-color: red; color: white;">Close</button>
       </form>
     </div>
 
     <!-- Code for leaflet -->
-    <script src="./script/globals.js"> </script>
-    <script src="./script/map.js"> </script>
-    <script src="./script/index.js"> </script>
-    <script src="./script/requests.js"> </script>
+    <script src="./script/globals.js"> </script> <!-- Global variables -->
+    <script src="./script/map.js"> </script> <!-- Map handler -->
+    <script src="./script/index.js"> </script> <!-- Main script with onload events -->
+    <script src="./script/insertForm.js"> </script> <!-- Form handler for registration -->
+    <script src="./script/requests.js"> </script> <!-- Request handler for reading informations -->
 </body>
 </html>

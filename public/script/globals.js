@@ -23,28 +23,28 @@ const fields = {
 }
 
 const treeFormHTML = (lat,lng) => ` 
+    <input type="text " id="name" name="name" placeholder="name" defaultvalue="Unknown Tree"><br>
     <input type="text " id="size" name="size" placeholder="size" defaultvalue="Unknown Size"><br>
-    <input type="text " id="name" name="name" placeholder="name" defaultvalue="Unknown Tree"<br>
     <input type="text " id="description" name="description" placeholder="description" defaultvalue="No description provided"><br>
     <input type="text " id="discoveredBy" name="discoveredBy" placeholder="discoveredBy" defaultvalue="Anonymous"><br>
-    <input type="number" id="latitude" name="latitude" defaultvalue="${lat}" style='display:none'><br>
-    <input type="number" id="longitude" name="longitude" defaultvalue="${lng}" style='display:none'><br>
+    <input type="number" id="latitude" name="latitude" value="${lat}" style='display:none'><br>
+    <input type="number" id="longitude" name="longitude" value="${lng}" style='display:none'><br>
 `;
 
 const podFormHTML = (lat,lng) => `
     <input type="String " id="name" name="name" placeholder="name" defaultvalue="Unnamed Ruin"><br>
     <input type="String " id="description" name="description" placeholder="description" defaultvalue="No description provided"><br>
     <input type="String " id="discoveredBy" name="discoveredBy" placeholder="discoveredBy" defaultvalue="Anonymous"><br>
-    <input type="number" id="latitude" name="latitude" defaultvalue="${lat}" style='display:none'><br>
-    <input type="number" id="longitude" name="longitude" defaultvalue="${lng}" style='display:none'><br>
+    <input type="number" id="latitude" name="latitude" value="${lat}" style='display:none'><br>
+    <input type="number" id="longitude" name="longitude" value="${lng}" style='display:none'><br>
 `;
 
 const ruinFormHTML = (lat,lng) =>  `
-    <input type="String " id="name" name="name" placeholder="name" defaultvalue="Unnamed Pod"><br>
-    <input type="String " id="description" name="description" placeholder="description" defaultvalue="No description provided"><br>
-    <input type="String " id="discoveredBy" name="discoveredBy" placeholder="discoveredBy" defaultvalue="Anonymous"><br>
-    <input type="number" id="latitude" name="latitude" defaultvalue="${lat}" style='display:none'><br>
-    <input type="number" id="longitude" name="longitude" defaultvalue="${lng}" style='display:none'><br>
+    <input type="String " id="name"         name="name"         placeholder="name"          defaultvalue="Unnamed Pod"><br>
+    <input type="String " id="description"  name="description"  placeholder="description"   defaultvalue="No description provided"><br>
+    <input type="String " id="discoveredBy" name="discoveredBy" placeholder="discoveredBy"  defaultvalue="Anonymous"><br>
+    <input type="number"  id="latitude"     name="latitude"     value="${lat}"       style='display:none'><br>
+    <input type="number"  id="longitude"    name="longitude"    value="${lng}"       style='display:none'><br>
 `;
 
 
