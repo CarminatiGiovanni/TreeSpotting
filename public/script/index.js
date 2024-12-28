@@ -148,9 +148,9 @@ function formSubmit(e){
         body: JSON.stringify(formObject),
     }).then(res => res.json())
     .then(data => {
-        getTrees();
-        getPods();
-        getRuins();
+        if (SELECTED === 'tree') L.marker([objLat, objLng], {icon: treeIcon}).addTo(map).bindPopup(formObject.name);
+        else if (SELECTED === 'pod') L.marker([objLat, objLng], {icon: waterIcon}).addTo(map).bindPopup(formObject.name);
+        else if (SELECTED === 'ruin') L.marker([objLat, objLng], {icon: ruinIcon}).addTo(map).bindPopup(formObject.name);
     }).catch(err => console.log('error',err));
 
     closeForm();
