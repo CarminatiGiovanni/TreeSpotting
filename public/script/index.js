@@ -3,6 +3,9 @@ let zoom = defaultZoom;
 let latitude = 45.794284064900566;
 let longitude = 9.704325503425144;
 
+let objLat = 0;
+let objLng = 0;
+
 let yourPosIcon = L.icon({
     iconUrl: '../icon/feet.png',
     iconSize:     [30, 30], // size of the icon
@@ -40,27 +43,9 @@ let ruinIcon = L.icon({
 });
 
 let map = L.map('map').fitWorld(); //setView([latitude, longitude], defaultZoom);
-fetch('/trees',{method: 'POST'} )
-    .then(res => res.json())
-    .then(trees => {
-        trees.forEach(tree => {
-            if (tree.name === 'Castagno') L.marker([tree.latitude, tree.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(tree.name);
-            else if (tree.name === 'Noce') L.marker([tree.latitude, tree.longitude], {icon: walnutIcon}).addTo(map).bindPopup(tree.name);
-            else L.marker([tree.latitude, tree.longitude], {icon: treeIcon}).addTo(map).bindPopup(tree.name);
-        })
-    })
-    .catch(err => console.log(err));
 
-fetch('/pods',{method: 'POST'})
-    .then(res => res.json())
-    .then(pods => {
-        pods.forEach(pod => {
-            L.marker([pod.latitude, pod.longitude], {icon: waterIcon}).addTo(map).bindPopup(pod.name);
-        });
-    })
-    .catch(err => console.log(err));
-
-fetch('/ruins',{method: 'POST'})
+function getRuins(){
+    fetch('/ruins',{method: 'POST'})
     .then(res => res.json())
     .then(ruins => {
         ruins.forEach(ruin => {
@@ -68,7 +53,35 @@ fetch('/ruins',{method: 'POST'})
         });
     })
     .catch(err => console.log(err));
+}
+function getTrees() {
+    fetch('/trees', { method: 'POST' })
+        .then(res => res.json())
+        .then(trees => {
+            trees.forEach(tree => {
+                if (tree.name === 'Castagno') L.marker([tree.latitude, tree.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(tree.name);
+                else if (tree.name === 'Noce') L.marker([tree.latitude, tree.longitude], {icon: walnutIcon}).addTo(map).bindPopup(tree.name);
+                else L.marker([tree.latitude, tree.longitude], {icon: treeIcon}).addTo(map).bindPopup(tree.name);
+            });
+        })
+        .catch(err => console.log(err));
+}
 
+function getPods() {
+    fetch('/pods', { method: 'POST' })
+        .then(res => res.json())
+        .then(pods => {
+            pods.forEach(pod => {
+                L.marker([pod.latitude, pod.longitude], {icon: waterIcon}).addTo(map).bindPopup(pod.name);
+            });
+        })
+        .catch(err => console.log(err));
+}
+
+
+getPods();
+getTrees();
+getRuins();
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     maxZoom: 20,
 }).addTo(map);
@@ -104,11 +117,16 @@ let formitem = document.getElementById('spottingForm');
 formitem.addEventListener('submit', formSubmit);
 
 function openForm(latlng) {
-    document.getElementById('spottingForm').style.display = 'block';
+    document.getElementById('formcontainer').style.display = 'block';
+    objLat = latlng.lat;
+    objLng = latlng.lng;
 }
 
 function closeForm() {
-    document.getElementById('spottingForm').style.display = 'none';
+    document.getElementById('formcontainer').style.display = 'none';
+    const formFields = document.getElementById('formFields');
+    formFields.querySelectorAll('input, select, textarea').forEach(field => field.value = '');
+    document.getElementById('formFields').innerHTML = '';
 }
 
 function formSubmit(e){
@@ -119,8 +137,8 @@ function formSubmit(e){
     formData.forEach((value, key) => {
         formObject[key] = value || fields[SELECTED][key]['default'] // fields defined in index.html
     });
-    formObject['latitude'] = latitude;
-    formObject['longitude'] = longitude;
+    formObject['latitude'] = objLat;
+    formObject['longitude'] = objLng;
     
     fetch(`/add_${SELECTED}`, {
         method: 'POST',
@@ -130,17 +148,10 @@ function formSubmit(e){
         body: JSON.stringify(formObject),
     }).then(res => res.json())
     .then(data => {
-        if (data.error) alert(data.error);
-        else {
-            if (SELECTED === 'tree') {
-                if (data.name === 'Castagno') L.marker([data.latitude, data.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(data.name);
-                else if (data.name === 'Noce') L.marker([data.latitude, data.longitude], {icon: walnutIcon}).addTo(map).bindPopup(data.name);
-                else L.marker([data.latitude, data.longitude], {icon: treeIcon}).addTo(map).bindPopup(data.name);
-            }
-            else if (SELECTED === 'pod') L.marker([data.latitude, data.longitude], {icon: waterIcon}).addTo(map).bindPopup(data.name);
-            else if (SELECTED === 'ruin') L.marker([data.latitude, data.longitude], {icon: ruinIcon}).addTo(map).bindPopup(data.name);
-        }
-    }).catch(err => console.log(err));
+        getTrees();
+        getPods();
+        getRuins();
+    }).catch(err => console.log('error',err));
 
     closeForm();
 }

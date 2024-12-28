@@ -68,7 +68,7 @@ app.post('/update_ruin', (req, res) => {
 app.post('/add_tree', (req, res) => {
     const tree = new Tree(req.body);
     tree.save()
-        .then(() => res.send('Tree added'))
+        .then(() => res.send({result:'Tree added'}))
         .catch(err => res.send(err));
 });
 
@@ -87,7 +87,7 @@ app.post('/add_pod', (req, res) => {
     const pod = new Pod(req.body);
     pod.save()
         .catch(err => res.send(err))
-        .then(() => res.send('Pod added'));
+        .then(() => res.send({result:'Pod added'}));
 }); 
 
 app.post('/populate_pod', (req, res) => { // handle arrays
@@ -104,7 +104,7 @@ app.post('/populate_pod', (req, res) => { // handle arrays
 app.post('/add_ruin', (req, res) => {
     const ruin = new Ruin(req.body);
     ruin.save()
-        .then(() => res.send('Ruin added'))
+        .then(() => res.send({result:'Ruin added'}))
         .catch(err => res.send(err));
 });
 

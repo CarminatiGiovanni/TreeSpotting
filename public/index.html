@@ -30,7 +30,7 @@
     <div id="map"></div>
 
     <!-- Form -->
-    <div class="form-container">
+    <div class="form-container" id='formcontainer'>
       <div class="button-container" style="margin: -20px -20px 20px -20px;">
       <button id="treeButton" onclick="showForm('tree')">Tree</button>
       <button id="ruinButton" onclick="showForm('ruin')">Ruin</button>
@@ -39,9 +39,10 @@
 
       <form id="spottingForm">
       <div id="formFields">
-        <!-- Fields will be dynamically inserted here -->
+      <!-- Fields will be dynamically inserted here -->
       </div>
       <button type="submit" onsubmit="formSubmit">Submit</button>
+      <button type="button" onclick="closeForm()" style="background-color: red; color: white;">Close</button>
       </form>
     </div>
 
