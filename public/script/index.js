@@ -26,10 +26,10 @@ function onLoadCycle(){
 let formitem = document.getElementById('spottingForm');
 formitem.addEventListener('submit', formSubmit);
 
-function openForm(latlng) {
+function openForm(lat,lng) {
     document.getElementById('formcontainer').style.display = 'block';
-    objLat = latlng.lat;
-    objLng = latlng.lng;
+    objLat = lat;
+    objLng = lng;
 }
 
 function closeForm() {
@@ -65,20 +65,25 @@ function formSubmit(e){
     closeForm();
 }
 
-let SELECTED = 'tree'; // tree pod or ruin
+// let SELECTED = 'tree'; // tree pod or ruin
 
 function showForm(selectedType) {
-  SELECTED = selectedType;
-  const formFields = document.getElementById('formFields');
-  formFields.innerHTML = '';
+    const formFields = document.getElementById('formFields');
+    formFields.innerHTML = '';
 
-  let formContent = '';
-  for (const [key,value] of Object.entries(fields[selectedType])) {
-    formContent += `
-      <input type="${value['type']} " id="${key}" name="${key}" placeholder="${key}" defaultvalue="${value['default']}"><br/>
-    `;
-  }
-  formFields.innerHTML = formContent;
+    switch(selectedType) {
+        case 'tree':
+            formFields.innerHTML = treeFormHTML(objLat, objLng);
+        break;
+        case 'pod':
+            formFields.innerHTML = podFormHTML(objLat, objLng);
+        break;
+        case 'ruin':
+            formFields.innerHTML = ruinFormHTML(objLat, objLng);
+        break;
+        default:
+            formFields.innerHTML = '';
+    }
 
   // Update button styles
   document.querySelectorAll('.button-container button').forEach(button => {
@@ -87,6 +92,6 @@ function showForm(selectedType) {
   });
   document.getElementById(`${selectedType}Button`).style.backgroundColor = '#f9f9f9';
   document.getElementById(`${selectedType}Button`).style.color = 'black';
-  }
+}
 
 document.addEventListener('DOMContentLoaded', () => showForm('tree'));

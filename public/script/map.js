@@ -5,7 +5,7 @@ map.doubleClickZoom.disable();
 map.on('dblclick', function(e) {
     let latlng = map.mouseEventToLatLng(e.originalEvent);
     // L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
-    openForm(latlng);
+    openForm(latlng.lat, latlng.lng);
 });
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     maxZoom: 20,
