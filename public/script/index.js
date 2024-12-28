@@ -125,8 +125,7 @@ function openForm(latlng) {
 function closeForm() {
     document.getElementById('formcontainer').style.display = 'none';
     const formFields = document.getElementById('formFields');
-    formFields.querySelectorAll('input, select, textarea').forEach(field => field.value = '');
-    document.getElementById('formFields').innerHTML = '';
+    formFields.querySelectorAll('input').forEach(field => field.value = '');
 }
 
 function formSubmit(e){
@@ -148,7 +147,11 @@ function formSubmit(e){
         body: JSON.stringify(formObject),
     }).then(res => res.json())
     .then(data => {
-        if (SELECTED === 'tree') L.marker([objLat, objLng], {icon: treeIcon}).addTo(map).bindPopup(formObject.name);
+        if (SELECTED === 'tree') {
+            if (formObject.name === 'Castagno') L.marker([formObject.latitude, formObject.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(formObject.name);
+            else if (formObject.name === 'Noce') L.marker([formObject.latitude, formObject.longitude], {icon: walnutIcon}).addTo(map).bindPopup(formObject.name);
+            else L.marker([formObject.latitude, formObject.longitude], {icon: treeIcon}).addTo(map).bindPopup(formObject.name);
+        }
         else if (SELECTED === 'pod') L.marker([objLat, objLng], {icon: waterIcon}).addTo(map).bindPopup(formObject.name);
         else if (SELECTED === 'ruin') L.marker([objLat, objLng], {icon: ruinIcon}).addTo(map).bindPopup(formObject.name);
     }).catch(err => console.log('error',err));
