@@ -29,3 +29,12 @@ function getPods() {
         })
         .catch(err => console.log(err));
 }
+function getSlack() {
+    fetch('/slack', { method: 'POST' })
+        .then(res => res.json())
+        .then(slacks => {
+            slacks.forEach(slack => createMarker(slack.latitude, slack.longitude, 'slack', slack.name, slack._id));
+            slacks.forEach(slack => markersInformations[slack._id] = {...slack, type: 'slack'});
+        })
+        .catch(err => console.log(err));
+}

@@ -19,4 +19,5 @@ function onLoadCycle(){
     getPods();
     getTrees();
     getRuins();
+    getSlack();
 }

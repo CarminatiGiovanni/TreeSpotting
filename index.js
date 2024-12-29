@@ -48,7 +48,7 @@ app.post('/ruins', (req, res) => {
 });
 
 app.post('/slack', (req, res) => {
-    Ruin.find()
+    Slack.find()
         .then(slack => res.json(slack))
         .catch(err => res.status(500).send(err));
 });
