@@ -32,6 +32,6 @@ const slackSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 
-const Ruin = mongoose.model('Ruin', ruinSchema);
+const Slack = mongoose.model('Slack', slackSchema);
 
-module.exports = Ruin;
+module.exports = Slack;
