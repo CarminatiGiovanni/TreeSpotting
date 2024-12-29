@@ -47,6 +47,15 @@ const ruinFormHTML = (lat,lng) =>  `
     <input type="number"  id="longitude"    name="longitude"    value="${lng}"       style='display:none'><br>
 `;
 
+const slackFormHTML = (lat,lng) => ` 
+    <input type="text " id="name" name="name" placeholder="name" defaultvalue="Unknown Tree"><br>
+    <input type="text " id="lenght" name="lenght" placeholder="lenght" defaultvalue="No lenght provided"><br>
+    <input type="text " id="description" name="description" placeholder="description" defaultvalue="No description provided"><br>
+    <input type="text " id="discoveredBy" name="discoveredBy" placeholder="discoveredBy" defaultvalue="Anonymous"><br>
+    <input type="number" id="latitude" name="latitude" value="${lat}" style='display:none'><br>
+    <input type="number" id="longitude" name="longitude" value="${lng}" style='display:none'><br>
+`;
+
 
 const feetIcon = L.icon({
     id: '',
@@ -87,6 +96,11 @@ const ruinIcon = L.icon({
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
 });
 
+const slackIcon = L.icon({
+    iconUrl: '../icon/slack.png',
+    iconSize:     [30, 30], // size of the icon
+    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
+});
 
 const treeiconmapping = (treename) => {
     if (treename === 'Castagno') return chestnutIcon;

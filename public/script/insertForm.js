@@ -28,6 +28,9 @@ function switchForm(selectedType) {
             formFields.innerHTML = ruinFormHTML(pointLat, pointLng);
             SELECTED = 'ruin';
         break;
+        case 'slack':
+            formFields.innerHTML = slackFormHTML(pointLat, pointLng);
+            SELECTED = 'slack';
         default:
             formFields.innerHTML = treeFormHTML(pointLat, pointLng);
             SELECTED = 'tree';
@@ -49,7 +52,6 @@ function closeForm() {
 }
 
 function formSubmit(e){
-    console.log('submit');
     // console.log(SELECTED); // global variable defined in index.html
     e.preventDefault();
     const formData = new FormData(document.getElementById('spottingForm'));
