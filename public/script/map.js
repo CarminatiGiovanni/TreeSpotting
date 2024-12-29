@@ -16,10 +16,10 @@ function backToYourPos() { // button on the navbar on top left
 }
 
 function createMarker(lat,lng,type,name,id){
-    switch(type){
-        case 'ruin': L.marker([lat, lng], {icon: ruinIcon, id:id}).addTo(map).bindPopup(name).on('click',getMarkerInfo); break;
-        case 'pod': L.marker([lat, lng], {icon: podIcon, id:id}).addTo(map).bindPopup(name).on('click',getMarkerInfo); break;
-        case 'tree': L.marker([lat, lng], {icon:  treeiconmapping(name), id:id}).addTo(map).bindPopup(name).on('click',getMarkerInfo); break;
+    switch(type){ // .bindPopup(name)
+        case 'ruin': L.marker([lat, lng], {icon: ruinIcon, id:id}).addTo(map).on('click',getMarkerInfo); break;
+        case 'pod': L.marker([lat, lng], {icon: podIcon, id:id}).addTo(map).on('click',getMarkerInfo); break;
+        case 'tree': L.marker([lat, lng], {icon:  treeiconmapping(name), id:id}).addTo(map).on('click',getMarkerInfo); break;
         default: console.log('Error: invalid name');
     }
     // .on('click',getMarkerInfo)
@@ -28,5 +28,6 @@ function createMarker(lat,lng,type,name,id){
 
 function getMarkerInfo(e){
     id = this.options.id;
-    console.log(markersInformations[id]);
+    // console.log(markersInformations[id]);
+    openPopup(markersInformations[id].name, markersInformations[id].description);
 }

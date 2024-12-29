@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"></link>
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/formstyle.css">
+    <link rel="stylesheet" href="./style/popup.css">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <title>TreeSpotting</title>
 </head>
@@ -46,11 +47,23 @@
       </form>
     </div>
 
+    <!-- Popup for visualizing element information -->
+    <div id="infoPopup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2 id="popupTitle">Element Information</h2>
+        <div id="popupBody">
+          <!-- Information will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
     <!-- Code for leaflet -->
     <script src="./script/globals.js"> </script> <!-- Global variables -->
     <script src="./script/map.js"> </script> <!-- Map handler -->
     <script src="./script/index.js"> </script> <!-- Main script with onload events -->
     <script src="./script/insertForm.js"> </script> <!-- Form handler for registration -->
+    <script src="./script/poupup.js"> </script>
     <script src="./script/requests.js"> </script> <!-- Request handler for reading informations -->
 </body>
 </html>
