@@ -16,13 +16,18 @@ function backToYourPos() { // button on the navbar on top left
 }
 
 function createMarker(lat,lng,type,name,id){
+    let marker;
     switch(type){ // .bindPopup(name)
-        case 'ruin':    L.marker([lat, lng], {icon: ruinIcon, id:id})               .addTo(map).on('click',getMarkerInfo); break;
-        case 'pod':     L.marker([lat, lng], {icon: podIcon, id:id})                .addTo(map).on('click',getMarkerInfo); break;
-        case 'tree':    L.marker([lat, lng], {icon:  treeiconmapping(name), id:id}) .addTo(map).on('click',getMarkerInfo); break;
-        case 'slack':   L.marker([lat, lng], {icon: slackIcon, id:id})              .addTo(map).on('click',getMarkerInfo); break;
+        case 'ruin':    marker = new  L.marker([lat, lng], {icon: ruinIcon, id:id}); break;
+        case 'pod':     marker = new  L.marker([lat, lng], {icon: podIcon, id:id}); break;
+        case 'tree':    marker = new  L.marker([lat, lng], {icon:  treeiconmapping(name), id:id}); break;
+        case 'slack':   marker = new  L.marker([lat, lng], {icon: slackIcon, id:id}); break;
         default: console.log('Error: invalid name');
     }
+    map.addLayer(marker);
+    marker.on('click',getMarkerInfo);
+
+    markersInformations[id] = {marker:marker, ...markersInformations[id]};
     // .on('click',getMarkerInfo)
     //    .on('mouseover', onClick);
 }
@@ -30,5 +35,28 @@ function createMarker(lat,lng,type,name,id){
 function getMarkerInfo(e){
     id = this.options.id;
     // console.log(markersInformations[id]);
-    openPopup(markersInformations[id].name, markersInformations[id].description, markersInformations[id].author, markersInformations[id].size);
+    openPopup(markersInformations[id].type,markersInformations[id].name, markersInformations[id].description, markersInformations[id].author, markersInformations[id].size);
+}
+
+function deleteElement(){
+    idToDelete = document.getElementById('elementId').innerHTML;
+    type = document.getElementById('elementType').innerHTML;
+    if (confirm('Are you sure you want to delete this element?')) {
+        if (confirm('really?')){
+            fetch('/delete_'+type, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({_id: idToDelete}),
+            });
+        }
+    }
+    markerDelete = markersInformations[idToDelete].marker;
+    console.log(markerDelete)
+    console.log('before removelayer')
+    map.removeLayer(markerDelete);
+    console.log('before delete')
+    delete markersInformations[idToDelete];
+    closePopup();
 }
