@@ -29,5 +29,5 @@ function createMarker(lat,lng,type,name,id){
 function getMarkerInfo(e){
     id = this.options.id;
     // console.log(markersInformations[id]);
-    openPopup(markersInformations[id].name, markersInformations[id].description);
+    openPopup(markersInformations[id].name, markersInformations[id].description, markersInformations[id].author, markersInformations[id].size);
 }

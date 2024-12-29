@@ -65,7 +65,7 @@ function formSubmit(e){
     }).then(res => res.json())
     .then(data => {
         createMarker(pointLat, pointLng, SELECTED, data.name, data._id);
-        markersInformations[data._id] = data;
+        markersInformations[data._id] = {...data,type:SELECTED};
     }).catch(err => console.log('error',err));
 
     closeForm();
