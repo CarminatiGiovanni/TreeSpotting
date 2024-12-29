@@ -54,10 +54,7 @@ function formSubmit(e){
     e.preventDefault();
     const formData = new FormData(document.getElementById('spottingForm'));
     const formObject = {};
-    formData.forEach((value, key) => {
-        console.log(key, value);
-        formObject[key] = value || fields[SELECTED][key]['default'] // fields defined in index.html
-    });
+    formData.forEach((value, key) => formObject[key] = value || fields[SELECTED][key]['default']); // fields defined in index.html
     
     fetch(`/add_${SELECTED}`, {
         method: 'POST',
@@ -67,9 +64,8 @@ function formSubmit(e){
         body: JSON.stringify(formObject),
     }).then(res => res.json())
     .then(data => {
-        if (SELECTED === 'tree') L.marker([pointLat, pointLng], {icon: treeiconmapping(formObject.name)}).addTo(map).bindPopup(formObject.name);
-        else if (SELECTED === 'pod') L.marker([pointLat, pointLng], {icon: waterIcon}).addTo(map).bindPopup(formObject.name);
-        else if (SELECTED === 'ruin') L.marker([pointLat, pointLng], {icon: ruinIcon}).addTo(map).bindPopup(formObject.name);
+        createMarker(pointLat, pointLng, SELECTED, data.name, data._id);
+        markersInformations[data._id] = data;
     }).catch(err => console.log('error',err));
 
     closeForm();

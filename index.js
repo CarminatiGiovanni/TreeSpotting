@@ -68,7 +68,7 @@ app.post('/update_ruin', (req, res) => {
 app.post('/add_tree', (req, res) => {
     const tree = new Tree(req.body);
     tree.save()
-        .then(() => res.send({result:'Tree added'}))
+        .then((result) => res.send(result))
         .catch(err => res.send(err));
 });
 

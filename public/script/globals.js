@@ -49,18 +49,21 @@ const ruinFormHTML = (lat,lng) =>  `
 
 
 const feetIcon = L.icon({
+    id: '',
     iconUrl: '../icon/feet.png',
     iconSize:     [30, 30], // size of the icon
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
 });
 
 const chestnutIcon = L.icon({
+    id: '',
     iconUrl: '../icon/chestnut.png',
     iconSize:     [30, 30], // size of the icon
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
 });
 
 const walnutIcon = L.icon({
+    id: '',
     iconUrl: '../icon/walnut.png',
     iconSize:     [30, 30], // size of the icon
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
@@ -72,7 +75,7 @@ const treeIcon = L.icon({
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
 });
 
-const waterIcon = L.icon({
+const podIcon = L.icon({
     iconUrl: '../icon/drop.png',
     iconSize:     [30, 30], // size of the icon
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
@@ -95,3 +98,5 @@ const defaultZoom = 15
 let zoom = defaultZoom;
 let userLat;
 let userLng;
+
+let markersInformations = {};
