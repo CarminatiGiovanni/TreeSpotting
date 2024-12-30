@@ -187,3 +187,38 @@ app.post('/delete_slack', (req, res) => {
 // ec2-user
 //  kill -9 $(ps aux | grep '\snode\s' | awk '{print $2}')
 // sudo su
+app.post('/mushrooms', (req, res) => {
+    Mushroom.find()
+        .then(mushrooms => res.json(mushrooms))
+        .catch(err => res.status(500).send(err));
+});
+
+app.post('/update_mushroom', (req, res) => {
+    Mushroom.findByIdAndUpdate(req.body._id, req.body, { new: true })
+        .then(mushroom => res.json(mushroom))
+        .catch(err => res.status(500).send(err));
+});
+
+app.post('/add_mushroom', (req, res) => {
+    const mushroom = new Mushroom(req.body);
+    mushroom.save()
+        .then(() => res.send({ result: 'Mushroom added' }))
+        .catch(err => res.send(err));
+});
+
+app.post('/populate_mushroom', (req, res) => { // handle arrays
+    let errors = [];
+    req.body.forEach(m => {
+        const mushroom = new Mushroom(m);
+        mushroom.save()
+            .catch(err => errors.push(err));
+    });
+    if (errors.length > 0) res.send(errors);
+    else res.send('Mushrooms added');
+});
+
+app.post('/delete_mushroom', (req, res) => {
+    Mushroom.findByIdAndDelete(req.body._id)
+        .then(() => res.send('Mushroom deleted'))
+        .catch(err => res.send(err));
+});
