@@ -35,7 +35,7 @@ function createMarker(lat,lng,type,name,id){
 function getMarkerInfo(e){
     id = this.options.id;
     // console.log(markersInformations[id]);
-    openPopup(markersInformations[id].type,markersInformations[id].name, markersInformations[id].description, markersInformations[id].author, markersInformations[id].size);
+    openPopup(markersInformations[id].type,markersInformations[id].name, markersInformations[id].description, markersInformations[id].discoveredBy, markersInformations[id].size);
 }
 
 function deleteElement(){
@@ -53,10 +53,7 @@ function deleteElement(){
         }
     }
     markerDelete = markersInformations[idToDelete].marker;
-    console.log(markerDelete)
-    console.log('before removelayer')
-    map.removeLayer(markerDelete);
-    console.log('before delete')
+    map = map.removeLayer(markerDelete);
     delete markersInformations[idToDelete];
     closePopup();
 }
