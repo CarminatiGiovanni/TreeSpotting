@@ -13,6 +13,13 @@ const fields = {
       'description': { "type": "String", "required": "false", "default": "" },
       'discoveredBy': { "type": "String", "required": "false", "default": "" }
     },
+    'mushroom': {
+      'name': { "type": "String", "required": "false", "default": "So mia come'l se ciama" },
+      // 'latitude': { "type": "Number", "required": "true" },
+      // 'longitude': { "type": "Number", "required": "true" },
+      'description': { "type": "String", "required": "false", "default": "" },
+      'discoveredBy': { "type": "String", "required": "false", "default": "" }
+    },
     'ruin': {
       'name': { "type": "String", "required": "false", "default": "So mia come'l se ciama" },
       // 'latitude': { "type": "Number", "required": "true" },
@@ -40,6 +47,14 @@ const treeFormHTML = (lat,lng) => `
 `;
 
 const podFormHTML = (lat,lng) => `
+    <input type="String " id="name" name="name" placeholder="Nome" defaultvalue="So mia come'l se ciama"><br>
+    <textarea type="String " id="description" name="description" placeholder="Cuntamela so" defaultvalue=""></textarea><br>
+    <input type="String " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?" defaultvalue=""><br>
+    <input type="number" id="latitude" name="latitude" value="${lat}" style='display:none'><br>
+    <input type="number" id="longitude" name="longitude" value="${lng}" style='display:none'><br>
+`;
+
+const mushroomFormHTML = (lat,lng) => `
     <input type="String " id="name" name="name" placeholder="Nome" defaultvalue="So mia come'l se ciama"><br>
     <textarea type="String " id="description" name="description" placeholder="Cuntamela so" defaultvalue=""></textarea><br>
     <input type="String " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?" defaultvalue=""><br>
@@ -115,6 +130,13 @@ const treeiconmapping = (treename) => {
     else if (treename === 'Noce') return walnutIcon;
     else return treeIcon;
 }
+
+const mushroomIcon = L.icon({
+    id: '',
+    iconUrl: '../icon/mushroom.png',
+    iconSize:     [30, 30], // size of the icon
+    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
+});
 
 const defaultZoom = 15
 let zoom = defaultZoom;
