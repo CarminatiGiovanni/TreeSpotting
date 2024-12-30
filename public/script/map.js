@@ -50,10 +50,11 @@ function deleteElement(){
                 },
                 body: JSON.stringify({_id: idToDelete}),
             });
+
+            markerDelete = markersInformations[idToDelete].marker;
+            map = map.removeLayer(markerDelete);
+            delete markersInformations[idToDelete];
+            closePopup();
         }
     }
-    markerDelete = markersInformations[idToDelete].marker;
-    map = map.removeLayer(markerDelete);
-    delete markersInformations[idToDelete];
-    closePopup();
 }
