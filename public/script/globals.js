@@ -33,7 +33,7 @@ const fields = {
 const treeFormHTML = (lat,lng) => ` 
     <input type="text " id="name" name="name" placeholder="Nome" defaultvalue="So mia come'l se ciama"><br>
     <input type="text " id="size" name="size" placeholder="Grant circa" defaultvalue=""><br>
-    <input type="text " id="description" name="description" placeholder="Cuntamela so" defaultvalue=""><br>
+    <textarea type="text " id="description" name="description" placeholder="Cuntamela so" defaultvalue=""></textarea><br>
     <input type="text " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?" defaultvalue=""><br>
     <input type="number" id="latitude" name="latitude" value="${lat}" style='display:none'><br>
     <input type="number" id="longitude" name="longitude" value="${lng}" style='display:none'><br>
@@ -41,7 +41,7 @@ const treeFormHTML = (lat,lng) => `
 
 const podFormHTML = (lat,lng) => `
     <input type="String " id="name" name="name" placeholder="Nome" defaultvalue="So mia come'l se ciama"><br>
-    <input type="String " id="description" name="description" placeholder="Cuntamela so" defaultvalue=""><br>
+    <textarea type="String " id="description" name="description" placeholder="Cuntamela so" defaultvalue=""></textarea><br>
     <input type="String " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?" defaultvalue=""><br>
     <input type="number" id="latitude" name="latitude" value="${lat}" style='display:none'><br>
     <input type="number" id="longitude" name="longitude" value="${lng}" style='display:none'><br>
@@ -49,7 +49,7 @@ const podFormHTML = (lat,lng) => `
 
 const ruinFormHTML = (lat,lng) =>  `
     <input type="String " id="name"         name="name"         placeholder="Nome"          defaultvalue="So mia come'l se ciama"><br>
-    <input type="String " id="description"  name="description"  placeholder="Cuntamela so"   defaultvalue=""><br>
+    <textarea type="String " id="description"  name="description"  placeholder="Cuntamela so"   defaultvalue=""></textarea><br>
     <input type="String " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?"  defaultvalue=""><br>
     <input type="number"  id="latitude"     name="latitude"     value="${lat}"       style='display:none'><br>
     <input type="number"  id="longitude"    name="longitude"    value="${lng}"       style='display:none'><br>
@@ -58,7 +58,7 @@ const ruinFormHTML = (lat,lng) =>  `
 const slackFormHTML = (lat,lng) => ` 
     <input type="text " id="name"         name="name"         placeholder="Nome"          defaultvalue="So mia come'l se ciama"><br>
     <input type="text " id="lenght"       name="lenght"       placeholder="Longa quant?"        defaultvalue=""><br>
-    <input type="text " id="description"  name="description"  placeholder="Cuntamela so"   defaultvalue=""><br>
+    <textarea type="text " id="description"  name="description"  placeholder="Cuntamela so"   defaultvalue=""></textarea><br>
     <input type="text " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?"  defaultvalue=""><br>
     <input type="number"  id="latitude"     name="latitude"     value="${lat}"       style='display:none'><br>
     <input type="number"  id="longitude"    name="longitude"    value="${lng}"       style='display:none'><br>
