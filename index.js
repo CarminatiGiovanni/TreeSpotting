@@ -7,6 +7,7 @@ const Tree = require('./schema/treeSchema');
 const Pod = require('./schema/podSchema');
 const Ruin = require('./schema/ruinSchema');
 const Slack = require('./schema/slackSchema');
+const Mushroom = require('./schema/mushroomSchema');
 
 const app = express();
 
