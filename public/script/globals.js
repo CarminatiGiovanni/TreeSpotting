@@ -1,65 +1,65 @@
 const fields = {
     'tree':{
-      'name': { "type": "text", "required": "false", "default": "Unknown Tree" },
+      'name': { "type": "text", "required": "false", "default": "So mia come'l se ciama" },
       //'latitude': { "type": "Number", "required": "true" },
       //'longitude': { "type": "Number", "required": "true" },
-      'size': { "type": "text", "required": "false", "default": "Unknown Size" },
-      'description': { "type": "text", "required": "false", "default": "No description provided" },
-      'discoveredBy': { "type": "text", "required": "false", "default": "Anonymous" }},
+      'size': { "type": "text", "required": "false", "default": "" },
+      'description': { "type": "text", "required": "false", "default": "" },
+      'discoveredBy': { "type": "text", "required": "false", "default": "" }},
     'pod': {
-      'name': { "type": "String", "required": "false", "default": "Unnamed Pod" },
+      'name': { "type": "String", "required": "false", "default": "So mia come'l se ciama" },
       // 'latitude': { "type": "Number", "required": "true" },
       // 'longitude': { "type": "Number", "required": "true" },
-      'description': { "type": "String", "required": "false", "default": "No description provided" },
-      'discoveredBy': { "type": "String", "required": "false", "default": "Anonymous" }
+      'description': { "type": "String", "required": "false", "default": "" },
+      'discoveredBy': { "type": "String", "required": "false", "default": "" }
     },
     'ruin': {
-      'name': { "type": "String", "required": "false", "default": "Unnamed Ruin" },
+      'name': { "type": "String", "required": "false", "default": "So mia come'l se ciama" },
       // 'latitude': { "type": "Number", "required": "true" },
       // 'longitude': { "type": "Number", "required": "true" },
-      'description': { "type": "String", "required": "false", "default": "No description provided" },
-      'discoveredBy': { "type": "String", "required": "false", "default": "Anonymous" }
+      'description': { "type": "String", "required": "false", "default": "" },
+      'discoveredBy': { "type": "String", "required": "false", "default": "" }
     },
     'slack': {
-        'name': { "type": "text", "required": "false", "default": "Unknown Tree" },
+        'name': { "type": "text", "required": "false", "default": "So mia come'l se ciama" },
         //'latitude': { "type": "Number", "required": "true" },
         //'longitude': { "type": "Number", "required": "true" },
-        'lenght': { "type": "text", "required": "false", "default": "No lenght provided" },
-        'description': { "type": "text", "required": "false", "default": "No description provided" },
-        'discoveredBy': { "type": "text", "required": "false", "default": "Anonymous" }
+        'lenght': { "type": "text", "required": "false", "default": "" },
+        'description': { "type": "text", "required": "false", "default": "" },
+        'discoveredBy': { "type": "text", "required": "false", "default": "" }
     }
 }
 
 const treeFormHTML = (lat,lng) => ` 
-    <input type="text " id="name" name="name" placeholder="name" defaultvalue="Unknown Tree"><br>
-    <input type="text " id="size" name="size" placeholder="size" defaultvalue="Unknown Size"><br>
-    <input type="text " id="description" name="description" placeholder="description" defaultvalue="No description provided"><br>
-    <input type="text " id="discoveredBy" name="discoveredBy" placeholder="discoveredBy" defaultvalue="Anonymous"><br>
+    <input type="text " id="name" name="name" placeholder="nome" defaultvalue="So mia come'l se ciama"><br>
+    <input type="text " id="size" name="size" placeholder="Grant circa" defaultvalue=""><br>
+    <input type="text " id="description" name="description" placeholder="Cuntamela so" defaultvalue=""><br>
+    <input type="text " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?" defaultvalue=""><br>
     <input type="number" id="latitude" name="latitude" value="${lat}" style='display:none'><br>
     <input type="number" id="longitude" name="longitude" value="${lng}" style='display:none'><br>
 `;
 
 const podFormHTML = (lat,lng) => `
-    <input type="String " id="name" name="name" placeholder="name" defaultvalue="Unnamed Ruin"><br>
-    <input type="String " id="description" name="description" placeholder="description" defaultvalue="No description provided"><br>
-    <input type="String " id="discoveredBy" name="discoveredBy" placeholder="discoveredBy" defaultvalue="Anonymous"><br>
+    <input type="String " id="name" name="name" placeholder="nome" defaultvalue="So mia come'l se ciama"><br>
+    <input type="String " id="description" name="description" placeholder="Cuntamela so" defaultvalue=""><br>
+    <input type="String " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?" defaultvalue=""><br>
     <input type="number" id="latitude" name="latitude" value="${lat}" style='display:none'><br>
     <input type="number" id="longitude" name="longitude" value="${lng}" style='display:none'><br>
 `;
 
 const ruinFormHTML = (lat,lng) =>  `
-    <input type="String " id="name"         name="name"         placeholder="name"          defaultvalue="Unnamed Pod"><br>
-    <input type="String " id="description"  name="description"  placeholder="description"   defaultvalue="No description provided"><br>
-    <input type="String " id="discoveredBy" name="discoveredBy" placeholder="discoveredBy"  defaultvalue="Anonymous"><br>
+    <input type="String " id="name"         name="name"         placeholder="nome"          defaultvalue="So mia come'l se ciama"><br>
+    <input type="String " id="description"  name="description"  placeholder="Cuntamela so"   defaultvalue=""><br>
+    <input type="String " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?"  defaultvalue=""><br>
     <input type="number"  id="latitude"     name="latitude"     value="${lat}"       style='display:none'><br>
     <input type="number"  id="longitude"    name="longitude"    value="${lng}"       style='display:none'><br>
 `;
 
 const slackFormHTML = (lat,lng) => ` 
-    <input type="text " id="name"         name="name"         placeholder="name"          defaultvalue="Unknown Slack"><br>
-    <input type="text " id="lenght"       name="lenght"       placeholder="lenght"        defaultvalue="No lenght provided"><br>
-    <input type="text " id="description"  name="description"  placeholder="description"   defaultvalue="No description provided"><br>
-    <input type="text " id="discoveredBy" name="discoveredBy" placeholder="discoveredBy"  defaultvalue="Anonymous"><br>
+    <input type="text " id="name"         name="name"         placeholder="nome"          defaultvalue="So mia come'l se ciama"><br>
+    <input type="text " id="lenght"       name="lenght"       placeholder="lenght"        defaultvalue=""><br>
+    <input type="text " id="description"  name="description"  placeholder="Cuntamela so"   defaultvalue=""><br>
+    <input type="text " id="discoveredBy" name="discoveredBy" placeholder="Te ciamet cum'è?"  defaultvalue=""><br>
     <input type="number"  id="latitude"     name="latitude"     value="${lat}"       style='display:none'><br>
     <input type="number"  id="longitude"    name="longitude"    value="${lng}"       style='display:none'><br>
 `;

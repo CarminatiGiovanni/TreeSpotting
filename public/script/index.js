@@ -9,7 +9,7 @@ function onLoadCycle(){
         userLat = position.coords.latitude; // set lat e lng
         userLng = position.coords.longitude;
         backToYourPos();
-        L.marker([userLat,userLng], {icon: feetIcon}).addTo(map).bindPopup('You are here!') // puts marker 
+        L.marker([userLat,userLng], {icon: feetIcon}).addTo(map).bindPopup('Te set che!') // puts marker 
     });
     else {
         console.log('error, impossible get the location');

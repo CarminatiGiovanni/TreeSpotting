@@ -1,71 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"></link>
-    <link rel="stylesheet" href="./style/index.css">
-    <link rel="stylesheet" href="./style/formstyle.css">
-    <link rel="stylesheet" href="./style/popup.css">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <title>TreeSpotting</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link type="text/css" rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"></link>
+  <link rel="stylesheet" href="./style/index.css">
+  <link rel="stylesheet" href="./style/formstyle.css">
+  <link rel="stylesheet" href="./style/popup.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <title>TreeSpotting</title>
 </head>
 <body onload="onLoadCycle()">
-    <!-- Navbar -->
-    <!-- Top Navigation Menu  https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_mobile_navbar_hor -->
-    <div class="topnav">
-      <a href="#home" class="active" onclick="backToYourPos()">
-         <img class="home_img" src="./icon/compass.png" alt="home"/> 
-      </a>
-      <div id="myLinks">
-        <a href="#A">A</a>
-        <a href="#B">B</a>
-        <a href="#C">C</a>
-      </div>
+  <!-- Barra di navigazione -->
+  <!-- Menu di navigazione superiore  https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_mobile_navbar_hor -->
+  <div class="topnav">
+    <a href="#home" class="active" onclick="backToYourPos()">
+     <img class="home_img" src="./icon/compass.png" alt="home"/> 
+    </a>
+    <div id="myLinks">
+      <a>Fai doppio click sulla mappa</a>
+    <!-- <a href="#A">A</a>
+    <a href="#B">B</a>
+    <a href="#C">C</a> -->
+    </div>
+  </div>
+
+  <!-- Mappa -->
+  <div id="map"></div>
+
+  <!-- Modulo -->
+  <div class="form-container" id='formcontainer'>
+    <div class="button-container" style="margin: -20px -20px 20px -20px;">
+    <button id="treeButton" onclick="switchForm('tree')">Albero</button>
+    <button id="ruinButton" onclick="switchForm('ruin')">Rovina</button>
+    <button id="podButton" onclick="switchForm('pod')">Pozza</button>
+    <button id="slackButton" onclick="switchForm('slack')">Slack</button>
     </div>
 
-    <!-- Map -->
-    <div id="map"></div>
-
-    <!-- Form -->
-    <div class="form-container" id='formcontainer'>
-      <div class="button-container" style="margin: -20px -20px 20px -20px;">
-      <button id="treeButton" onclick="switchForm('tree')">Tree</button>
-      <button id="ruinButton" onclick="switchForm('ruin')">Ruin</button>
-      <button id="podButton" onclick="switchForm('pod')">Pod</button>
-      <button id="slackButton" onclick="switchForm('slack')">Slack</button>
-      </div>
-
-      <form id="spottingForm">
-      <div id="formFields">
-      <!-- Fields will be dynamically inserted here -->
-      </div>
-      
-      <button type="submit">Submit</button>
-      <button type="button" onclick="closeForm()" style="background-color: red; color: white;">Close</button>
-      </form>
+    <form id="spottingForm">
+    <div id="formFields">
+    <!-- I campi saranno inseriti dinamicamente qui -->
     </div>
+    
+    <button type="submit">Invia</button>
+    <button type="button" onclick="closeForm()" style="background-color: red; color: white;">Chiudi</button>
+    </form>
+  </div>
 
-    <!-- Popup for visualizing element information -->
-    <div id="infoPopup" class="popup">
-      <div class="popup-content">
-      <span class="close" onclick="closePopup()">&times;</span>
-      <h2 id="popupTitle">Element Information</h2>
-      <div id="popupBody">
-        <!-- Information will be dynamically inserted here -->
-      </div>
-      <button id="deleteButton" onclick="deleteElement()" style="background-color: red; color: white;">Delete</button>
-      </div>
+  <!-- Popup per visualizzare le informazioni dell'elemento -->
+  <div id="infoPopup" class="popup">
+    <div class="popup-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <h2 id="popupTitle">Informazioni sull'elemento</h2>
+    <div id="popupBody">
+    <!-- Le informazioni saranno inserite dinamicamente qui -->
     </div>
+    <button id="deleteButton" onclick="deleteElement()" style="background-color: red; color: white;">Elimina</button>
+    </div>
+  </div>
 
-    <!-- Code for leaflet -->
-    <script src="./script/globals.js"> </script> <!-- Global variables -->
-    <script src="./script/map.js"> </script> <!-- Map handler -->
-    <script src="./script/index.js"> </script> <!-- Main script with onload events -->
-    <script src="./script/insertForm.js"> </script> <!-- Form handler for registration -->
-    <script src="./script/poupup.js"> </script>
-    <script src="./script/requests.js"> </script> <!-- Request handler for reading informations -->
+  <!-- Codice per leaflet -->
+  <script src="./script/globals.js"> </script> <!-- Variabili globali -->
+  <script src="./script/map.js"> </script> <!-- Gestore della mappa -->
+  <script src="./script/index.js"> </script> <!-- Script principale con eventi onload -->
+  <script src="./script/insertForm.js"> </script> <!-- Gestore del modulo per la registrazione -->
+  <script src="./script/poupup.js"> </script>
+  <script src="./script/requests.js"> </script> <!-- Gestore delle richieste per la lettura delle informazioni -->
 </body>
 </html>

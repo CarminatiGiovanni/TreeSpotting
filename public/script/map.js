@@ -41,8 +41,8 @@ function getMarkerInfo(e){
 function deleteElement(){
     idToDelete = document.getElementById('elementId').innerHTML;
     type = document.getElementById('elementType').innerHTML;
-    if (confirm('Are you sure you want to delete this element?')) {
-        if (confirm('really?')){
+    if (confirm('Casal \'ndela rometa?')) {
+        if (confirm('Te set sigur? ada che po\' dopo \'lghe pio')){
             fetch('/delete_'+type, {
                 method: 'POST',
                 headers: {
