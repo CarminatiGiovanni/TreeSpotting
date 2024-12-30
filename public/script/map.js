@@ -22,6 +22,7 @@ function createMarker(lat,lng,type,name,id){
         case 'pod':     marker = new  L.marker([lat, lng], {icon: podIcon, id:id}); break;
         case 'tree':    marker = new  L.marker([lat, lng], {icon:  treeiconmapping(name), id:id}); break;
         case 'slack':   marker = new  L.marker([lat, lng], {icon: slackIcon, id:id}); break;
+        case 'mushroom':   marker = new  L.marker([lat, lng], {icon: mushroomIcon, id:id}); break;
         default: console.log('Error: invalid name');
     }
     map.addLayer(marker);

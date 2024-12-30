@@ -38,3 +38,13 @@ function getSlack() {
         })
         .catch(err => console.log(err));
 }
+
+function getMushrooms() {
+    fetch('/mushrooms', { method: 'POST' })
+        .then(res => res.json())
+        .then(mushrooms => {
+            mushrooms.forEach(mushroom => markersInformations[mushroom._id] = {...mushroom, type: 'mushroom'});
+            mushrooms.forEach(mushroom => createMarker(mushroom.latitude, mushroom.longitude, 'mushroom', mushroom.name, mushroom._id));
+        })
+        .catch(err => console.log(err));
+}

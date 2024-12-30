@@ -32,6 +32,10 @@ function switchForm(selectedType) {
             formFields.innerHTML = slackFormHTML(pointLat, pointLng);
             SELECTED = 'slack';
             break;
+        case 'mushroom':
+            formFields.innerHTML = mushroomFormHTML(pointLat, pointLng);
+            SELECTED = 'mushroom';
+            break;
         default:
             formFields.innerHTML = treeFormHTML(pointLat, pointLng);
             SELECTED = 'tree';

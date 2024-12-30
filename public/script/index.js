@@ -20,4 +20,5 @@ function onLoadCycle(){
     getTrees();
     getRuins();
     getSlack();
+    getMushrooms();
 }
