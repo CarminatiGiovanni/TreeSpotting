@@ -104,8 +104,8 @@ app.post('/populate_tree', (req, res) => { // handle arrays
 app.post('/add_pod', (req, res) => {
     const pod = new Pod(req.body);
     pod.save()
+        .then((result) => res.send(result))
         .catch(err => res.send(err))
-        .then(() => res.send({result:'Pod added'}));
 }); 
 
 app.post('/populate_pod', (req, res) => { // handle arrays
@@ -122,7 +122,7 @@ app.post('/populate_pod', (req, res) => { // handle arrays
 app.post('/add_ruin', (req, res) => {
     const ruin = new Ruin(req.body);
     ruin.save()
-        .then(() => res.send({result:'Ruin added'}))
+        .then((result) => res.send(result))
         .catch(err => res.send(err));
 });
 
@@ -140,7 +140,7 @@ app.post('/populate_ruin', (req, res) => { // handle arrays
 app.post('/add_slack', (req, res) => {
     const slack = new Slack(req.body);
     slack.save()
-        .then(() => res.send({result:'Slack added'}))
+        .then((result) => res.send(result))
         .catch(err => res.send(err));
 });
 
@@ -202,7 +202,7 @@ app.post('/update_mushroom', (req, res) => {
 app.post('/add_mushroom', (req, res) => {
     const mushroom = new Mushroom(req.body);
     mushroom.save()
-        .then(() => res.send({ result: 'Mushroom added' }))
+        .then((result) => res.send(result))
         .catch(err => res.send(err));
 });
 

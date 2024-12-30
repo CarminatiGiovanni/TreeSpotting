@@ -18,11 +18,11 @@ function backToYourPos() { // button on the navbar on top left
 function createMarker(lat,lng,type,name,id){
     let marker;
     switch(type){ // .bindPopup(name)
-        case 'ruin':    marker = new  L.marker([lat, lng], {icon: ruinIcon, id:id}); break;
-        case 'pod':     marker = new  L.marker([lat, lng], {icon: podIcon, id:id}); break;
-        case 'tree':    marker = new  L.marker([lat, lng], {icon:  treeiconmapping(name), id:id}); break;
-        case 'slack':   marker = new  L.marker([lat, lng], {icon: slackIcon, id:id}); break;
-        case 'mushroom':   marker = new  L.marker([lat, lng], {icon: mushroomIcon, id:id}); break;
+        case 'ruin':    marker = new  L.marker([lat, lng], {icon: getIcon(type,name), id:id}); break;
+        case 'pod':     marker = new  L.marker([lat, lng], {icon: getIcon(type,name), id:id}); break;
+        case 'tree':    marker = new  L.marker([lat, lng], {icon:  getIcon(type,name), id:id}); break;
+        case 'slack':   marker = new  L.marker([lat, lng], {icon: getIcon(type,name), id:id}); break;
+        case 'mushroom':   marker = new  L.marker([lat, lng], {icon: getIcon(type,name), id:id}); break;
         default: console.log('Error: invalid name');
     }
     map.addLayer(marker);

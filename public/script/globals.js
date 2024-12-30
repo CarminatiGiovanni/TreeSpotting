@@ -125,10 +125,15 @@ const slackIcon = L.icon({
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
 });
 
-const treeiconmapping = (treename) => {
-    if (treename === 'Castagno') return chestnutIcon;
-    else if (treename === 'Noce') return walnutIcon;
-    else return treeIcon;
+const getIcon = (type,treename) => {
+    if (type=='tree' && treename === 'Castagno') return chestnutIcon;
+    else if (type=='tree' && treename === 'Noce') return walnutIcon;
+    else if (type=='tree') return treeIcon;
+    else if (type=='pod') return podIcon;
+    else if (type=='ruin') return ruinIcon;
+    else if (type=='slack') return slackIcon;
+    else if (type=='mushroom') return mushroomIcon;
+    else return undefined;
 }
 
 const mushroomIcon = L.icon({
